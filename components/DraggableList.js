@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const initialItems = [
-  { id: '1', content: 'England Island', subtext: 'Sydney, Australia', image: '/images/scotland-island.png', icon: '/images/location-icon.png' },
+  { id: '1', content: 'Scotland Island', subtext: 'Sydney, Australia', image: '/images/scotland-island.png', icon: '/images/location-icon.png' },
   { id: '2', content: 'The Charles Grand Brasserie & Bar', subtext: 'Lorem ipsum, Dolor', image: '/images/charles-grand.png', icon: '/images/location-icon.png' },
   { id: '3', content: 'Bridge Climb', subtext: 'Dolor, sit amet', image: '/images/bridge-climb.png', icon: '/images/location-icon.png' },
   { id: '4', content: 'Scotland Island', subtext: 'Sydney, Australia', image: '/images/scotland-island-boat.png', icon: '/images/location-icon.png' },
