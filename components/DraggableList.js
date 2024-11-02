@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const initialItems = [
@@ -12,8 +12,11 @@ const initialItems = [
 
 const DraggableList = () => {
   const [items, setItems] = useState(initialItems);
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const handleOnDragEnd = (result) => {
+    setDraggedItem(null);
     if (!result.destination) return;
 
     const reorderedItems = Array.from(items);
@@ -23,8 +26,21 @@ const DraggableList = () => {
     setItems(reorderedItems);
   };
 
+  const handleDragStart = (start) => {
+    const item = items.find((i) => i.id === start.draggableId);
+    setDraggedItem(item);
+  };
+
+  useEffect(() => {
+    const updateCursorPosition = (e) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', updateCursorPosition);
+    return () => window.removeEventListener('mousemove', updateCursorPosition);
+  }, []);
+
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
+    <DragDropContext onDragEnd={handleOnDragEnd} onDragStart={handleDragStart}>
       <Droppable droppableId="items">
         {(provided) => (
           <ul
@@ -35,55 +51,28 @@ const DraggableList = () => {
             {items.map(({ id, content, subtext, image, icon }, index) => (
               <Draggable key={id} draggableId={id} index={index}>
                 {(provided, snapshot) => (
-                  <>
-                    <li
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      className={`select-none flex items-center px-10 py-5 font-gelion relative ${
-                        snapshot.isDragging ? 'z-10' : ''
-                      }`}
-                      style={{
-                        ...provided.draggableProps.style,
-                      }}
-                    >
-                      {snapshot.isDragging && (
-                        <div className="absolute inset-0 bg-gray-500 opacity-50 rounded-2xl"></div>
+                  <li
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className={`select-none flex items-center px-10 py-5 font-gelion relative ${
+                      snapshot.isDragging ? 'opacity-0' : ''
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={content}
+                      className="w-24 rounded-2xl mr-6"
+                    />
+                    <div className="flex flex-col gap-1 relative z-20">
+                      <span className="font-medium text-med leading-6 text-customBlack">{content}</span>
+                      {subtext && (
+                        <span className="font-normal text-customGrey text-small leading-22px flex items-center">
+                          <img src={icon} alt={subtext} className="flex w-4 mr-1"/>{subtext}
+                        </span>
                       )}
-                      <img
-                        src={image}
-                        alt={content}
-                        className="w-24 rounded-2xl mr-6"
-                      />
-                      <div className="flex flex-col gap-1 relative z-20">
-                        <span className="font-medium text-med leading-6 text-customBlack">{content}</span>
-                        {subtext && (
-                          <span className="font-normal text-customGrey text-small leading-22px flex items-center">
-                            <img src={icon} alt={subtext} className="flex w-4 mr-1"/>{subtext}
-                          </span>
-                        )}
-                      </div>
-                    </li>
-                    {snapshot.isDragging && (
-                      <div
-                        className="fixed z-50 pointer-events-none"
-                        style={{
-                          top: snapshot.draggingOver ? 0 : 'unset',
-                          left: snapshot.draggingOver ? 0 : 'unset',
-                          transform: provided.draggableProps.style.transform,
-                        }}
-                      >
-                        <div className="select-none flex items-center px-10 py-5 font-gelion bg-white border rounded-lg shadow-lg">
-                          <img
-                            src={image}
-                            alt={content}
-                            className="w-12 rounded-2xl mr-6"
-                          />
-                          <span className="font-medium text-med leading-6 text-customBlack">{content}</span>
-                        </div>
-                      </div>
-                    )}
-                  </>
+                    </div>
+                  </li>
                 )}
               </Draggable>
             ))}
@@ -91,6 +80,27 @@ const DraggableList = () => {
           </ul>
         )}
       </Droppable>
+
+      {/* Custom drag preview */}
+      {draggedItem && (
+        <div
+          className="fixed pointer-events-none z-50"
+          style={{
+            top: cursorPosition.y + 5,
+            left: cursorPosition.x + 5,
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <div className="select-none flex items-center px-10 py-5 font-gelion bg-white border rounded-lg shadow-lg">
+            <img
+              src={draggedItem.image}
+              alt={draggedItem.content}
+              className="w-12 rounded-2xl mr-6"
+            />
+            <span className="font-medium text-med leading-6 text-customBlack">{draggedItem.content}</span>
+          </div>
+        </div>
+      )}
     </DragDropContext>
   );
 };
