@@ -13,9 +13,9 @@ This React and Next.js project uses the react-beautiful-dnd library to create a 
 
 1. Clone the repository: 
     git clone https://github.com/caseofbase18/draggable_list.git
-2. Navigate into the project directory.
+2. Navigate into the project directory:
     cd draggable-list
-3. Install dependencies.
+3. Install dependencies:
     npm install
 
 ## Usage
