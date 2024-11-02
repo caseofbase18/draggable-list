@@ -1,17 +1,15 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
-
-#Draggable List Component
+# Draggable List Component
 
 This React and Next.js project uses the react-beautiful-dnd library to create a draggable list of items with custom drag-and-drop functionality, including real-time cursor tracking and a unique drag preview. The component allows the user to rearrange items with a list by dragging them into new positions.
 
-##Features
+## Features
 
 * Drag-and-Drop: Powered by react-beautiful-dnd for smooth drag-and-drip functionality.
 * Real-Time Cursor Tracking: Tracks cursor position during dragging for a custom preview experience.
 * Custom Drag Preview: A floating, styled preview of the dragged item follows the cursor.
 * Item List: Displays a list of locations with images, names, and descriptions.
 
-##Installation
+## Installation
 
 1. Clone the repository.
     git clone https://github.com/caseofbase18/draggable_list.git
@@ -20,14 +18,14 @@ This React and Next.js project uses the react-beautiful-dnd library to create a 
 3. Install dependencies.
     npm install
 
-##Usage
+## Usage
 
 To start the app locally:
     npm run dev
 
 This will start the development server on http://localhost:3000
 
-##Code Explanation
+## Code Explanation
 
 1. Dependencies: Uses react-beautiful-dnd for drag-and-drop functionality.
 2. State Management:
