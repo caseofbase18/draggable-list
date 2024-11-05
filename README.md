@@ -4,7 +4,7 @@ This React and Next.js project uses the react-beautiful-dnd library to create a 
 
 ## Features
 
-* Drag-and-Drop: Powered by react-beautiful-dnd for smooth drag-and-drip functionality.
+* Drag-and-Drop: Powered by react-beautiful-dnd for smooth drag-and-drop functionality.
 * Real-Time Cursor Tracking: Tracks cursor position during dragging for a custom preview experience.
 * Custom Drag Preview: A floating, styled preview of the dragged item follows the cursor.
 * Item List: Displays a list of locations with images, names, and descriptions.
