@@ -37,3 +37,7 @@ This will start the development server on http://localhost:3000
     * handleDragStart: Sets the dragged item for custom preview.
 4. Custom Preview: A custom preview element renders while dragging, positioned near the cursor.
 
+## Screenshot
+
+<img src="./public/images/draggable-list.webp">
+
